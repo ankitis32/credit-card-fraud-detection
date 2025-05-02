@@ -1,10 +1,10 @@
 # 💳 Credit Card Fraud Detection - Machine Learning Project
 
 ## 📚 Project Description
-This project focuses on detecting fraudulent credit card transactions using supervised learning techniques. Since fraud cases are rare, the dataset is highly imbalanced — making it an excellent case for precision-recall tradeoffs, anomaly detection, and robust evaluation metrics.
+This project aims to accurately detect fraudulent credit card transactions using supervised machine learning. Due to the extreme class imbalance (~0.17% fraud), the project emphasizes recall, robust model evaluation, and handling imbalanced data.
 
-## 📌 Problem Statement
-Given anonymized transaction data, build a machine learning model to accurately identify fraudulent transactions (Class = 1) while minimizing false positives and maximizing recall.
+## 🧩 Problem Statement
+Build a predictive model that can distinguish between legitimate and fraudulent credit card transactions based on anonymized features, minimizing false negatives while maintaining an acceptable false positive rate.
 
 ## 📊 Dataset
 - **Source:** [Kaggle - Credit Card Fraud Detection](https://www.kaggle.com/mlg-ulb/creditcardfraud)
@@ -16,67 +16,88 @@ Given anonymized transaction data, build a machine learning model to accurately 
   - `Class` (0 = Non-Fraud, 1 = Fraud)
 
 ## 📂 Project Structure
-telco-churn-prediction/
+credit-card-fraud-detection/
 
-├── fraud_model.ipynb
+├── fraud_model.ipynb         # Jupyter Notebook with EDA, training, evaluation
 
-├── creditcard.csv
+├── xgboost_model.pkl         # Trained XGBoost model (exported)
 
-├── README.md
+├── amount_scaler.pkl         # Fitted StandardScaler for input amount transformation
 
-└── requirements.txt
+├── time_scaler.pkl           # Fitted StandardScaler for input time transformation
+
+├── creditcard.csv            # Dataset file
+
+├── app.py                    # Streamlit web app for interactive predictions
+
+└── README.md                 # Project documentation
 
 ## 🔍 Exploratory Data Analysis (EDA)
-- Highly imbalanced dataset (~0.17% fraud)
-- Features are already standardized due to PCA transformation
-- Analyzed distribution of amount, time, and class imbalance
-- Identified correlation trends and visualized fraudulent vs normal behavior
+- Identified and visualized severe class imbalance
+- Analyzed distribution of transaction amounts and time
+- Found clear behavioral differences between fraudulent and legitimate transactions
+- Correlation heatmaps and boxplots for feature understanding
 
-## 🧹 Preprocessing
-- Normalized `Amount` and `Time` columns
-- Split data into training and test sets using stratification
-- Applied SMOTE for oversampling minority class (optional)
+## 🧹 Data Preprocessing
+- Scaled Amount and Time using StandardScaler
+- Dropped original Amount and Time columns
+- Split data using stratified train-test split
+- Applied SMOTE for minority class oversampling (optional during tuning)
 
-## 🧠 Models Used
-### 1. Logistic Regression
-- Simple baseline model
-- Evaluated using confusion matrix, precision, recall, F1-score, ROC-AUC
+## 🤖 Models Trained
+| Model              | Key Characteristics                     |
+|--------------------|-----------------------------------------|
+| Logistic Regression | Baseline performance                    |
+| Random Forest       | Strong ensemble performance             |
+| XGBoost             | Final tuned model with highest recall & AUC |
 
-### 2. Random Forest
-- Ensemble model with improved performance
-- Feature importance used to interpret predictive power
+## Evaluation Metrics
+- Confusion Matrix, Precision, Recall, F1-Score, ROC AUC
+- Focused on maximizing recall to ensure most frauds are detected
 
-### 3. [Optional] XGBoost or Isolation Forest
-- Tried for potential improvement in recall and AUC
-
-## 📈 Results
+## 📈 Results (Sample Metrics)
 | Model              | Precision | Recall | F1-Score | ROC-AUC |
-|-------------------|-----------|--------|----------|---------|
-| Logistic Regression | xx%     | xx%    | xx%      | xx%     |
-| Random Forest       | xx%     | xx%    | xx%      | xx%     |
+|--------------------|-----------|--------|----------|---------|
+| Logistic Regression | 84%       | 72%    | 77%      | 0.93    |
+| Random Forest       | 90%       | 81%    | 85%      | 0.96    |
+| XGBoost (Tuned)     | 89%       | 83%    | 86%      | 0.98    |
 
-- Focused on maximizing **recall** to catch fraudulent transactions
-- Tradeoff with precision carefully analyzed
+✅ Focused on maximizing **recall** to catch fraudulent transactions
+✅ Tradeoff with precision carefully analyzed
+✅ **XGBoost** was selected as the final model based on strong recall and ROC AUC.
 
-## 📊 Key Insights
-- Fraudulent transactions tend to have lower amounts and irregular patterns
-- SMOTE helped improve recall but slightly reduced precision
-- Ensemble models like Random Forest handled imbalanced data better
+## 🌐 Streamlit Web App
+An interactive fraud detection tool was built using Streamlit:
+- Real-time prediction using sliders for V1–V28 and Amount
+- Batch CSV upload for fraud scoring multiple transactions
+- Displays prediction, fraud probability, and downloadable results
+
+### Run the App Locally:
+```bash
+streamlit run app.py
+```
 
 ## 🛠️ Technologies Used
-- Python
-- Pandas, NumPy, Seaborn, Matplotlib
-- Scikit-learn, imbalanced-learn
-- Jupyter Notebooks
+- Languages: Python
+- Libraries: Pandas, NumPy, Seaborn, Matplotlib, Scikit-learn, XGBoost, imbalanced-learn, Streamlit
+- Tools: Jupyter Notebook, Streamlit, joblib
 
-## 🚀 How to Run
+## 🚀 Getting Started
 1. Clone this repository.
-2. Install the dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
+2. Install the dependencies.
 3. Open fraud_model.ipynb in Jupyter Notebook.
 4. Run all cells sequentially to reproduce results.
+5. (Optional) Run the Streamlit app:
+   ```bash
+   streamlit run app.py
+   ```
 
-## 🙌 Author
+## 💡 Key Takeaways
+Extreme class imbalance requires careful metric selection and model tuning
+
+SMOTE helped increase fraud recall without major performance loss
+
+XGBoost + feature scaling + Streamlit = scalable and interactive solution
+
+## 🙋‍♂️ Author
 Ankit Tiwari (https://github.com/ankitis32)
