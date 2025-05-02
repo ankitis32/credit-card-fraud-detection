@@ -62,9 +62,11 @@ credit-card-fraud-detection/
 | Random Forest       | 90%       | 81%    | 85%      | 0.96    |
 | XGBoost (Tuned)     | 89%       | 83%    | 86%      | 0.98    |
 
-✅ Focused on maximizing **recall** to catch fraudulent transactions
+```
+✅ Focused on maximizing recall to catch fraudulent transactions
 ✅ Tradeoff with precision carefully analyzed
-✅ **XGBoost** was selected as the final model based on strong recall and ROC AUC.
+✅ XGBoost was selected as the final model based on strong recall and ROC AUC.
+```
 
 ## 🌐 Streamlit Web App
 An interactive fraud detection tool was built using Streamlit:
@@ -87,17 +89,12 @@ streamlit run app.py
 2. Install the dependencies.
 3. Open fraud_model.ipynb in Jupyter Notebook.
 4. Run all cells sequentially to reproduce results.
-5. (Optional) Run the Streamlit app:
-   ```bash
-   streamlit run app.py
-   ```
+5. (Optional) Run the Streamlit app.
 
 ## 💡 Key Takeaways
-Extreme class imbalance requires careful metric selection and model tuning
-
-SMOTE helped increase fraud recall without major performance loss
-
-XGBoost + feature scaling + Streamlit = scalable and interactive solution
+- Extreme class imbalance requires careful metric selection and model tuning
+- SMOTE helped increase fraud recall without major performance loss
+- XGBoost + feature scaling + Streamlit = scalable and interactive solution
 
 ## 🙋‍♂️ Author
 Ankit Tiwari (https://github.com/ankitis32)
